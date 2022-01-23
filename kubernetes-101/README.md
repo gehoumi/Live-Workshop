@@ -2,18 +2,20 @@
 
 Introduction to kubernetes and learning Labs to build, deploy and test `Docker-packaged` application, and to take your understanding of containers and microservices to the next level.
 
+- Kubernetes_Architecture: https://collabnix.github.io/kubelabs/Kubernetes_Architecture.html
+
 1. **Create a k8s cluster.**
 
 ```bash
 terraform plan/apply
 
-# Bootstrapping the Cluster with default node count =1
-# Setting up Worker Node : Add another custom node pool node count =4
+# 1-  Bootstrapping the Cluster with default node count =1
+# 2 - Setting up Worker Node : Add another custom node pool node count =4
 ```
 
 2. **Configure cluster access for kubectl**
 
-Kubernetes uses a YAML file called kubeconfig to store cluster authentication information for kubectl. kubeconfig contains a list of contexts to which kubectl refers when running commands. By default, the file is saved at $HOME/.kube/config.
+Kubernetes uses a YAML file called kubeconfig to store cluster authentication information for kubectl. kubeconfig contains a list of contexts to which kubectl refers when running commands. By default, the file is saved at `$HOME/.kube/config`.
 
 For GCP:
 ```
@@ -22,25 +24,32 @@ gcloud container clusters get-credentials main-cluster --zone us-central1 --proj
 
 Verifying Kubernetes Cluster
 Run the below command on master node
-
+```
 $ kubectl get nodes
+```
 
-- What to do References:
-https://collabnix.github.io/kubelabs/kube101.html
+- kubelabs - Kubernetes Hands-on Labs: https://collabnix.github.io/kubelabs
+- Preparing 5-Node Kubernetes Cluster: https://collabnix.github.io/kubelabs/kube101.html
 
-- Lab environment:
-https://www.katacoda.com/courses/kubernetes
-https://labs.play-with-k8s.com
+- Other Labs environment: https://www.katacoda.com/courses/kubernetes
+- Other Labs environment: https://labs.play-with-k8s.com
 
 - kubectl Cheat Sheet:
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
-3. **Clone the repository.**
+3. **Clone this repository.**
 
 ```
-git clone https://github.com/GoogleCloudPlatform/microservices-demo.git
-cd microservices-demo
+git clone https://github.com/gehoumi/Live-Workshop.git
+cd Live-Workshop/kubernetes-101/microservices-demo
 ```
+This demo uses **Google Online Boutique** a cloud-native microservices demo application.
+Online Boutique consists of a 10-tier microservices application. The application is a
+web-based e-commerce app where users can browse items,
+add them to the cart, and purchase them.
+
+[Source: GCP repo reference](https://github.com/GoogleCloudPlatform/microservices-demo.git)
+
 4. **Deploy a sample microservices-demo app to the cluster.**
 
 ```
@@ -89,11 +98,6 @@ EXTERNAL-IP
 
 [Reference](https://github.com/GoogleCloudPlatform/istio-samples/tree/master/istio-canary-gke)
 
-This demo accompanies [a GCP Blog Post](https://cloud.google.com/blog/products/networking/advanced-application-deployments-and-traffic-management-with-istio-on-gke) on managing application deployments with Istio and
-Stackdriver.
-
-## Introduction
-
 In this example, we will learn how to use [Istio’s](https://istio.io/) [Traffic Splitting](https://istio.io/docs/concepts/traffic-management/#splitting-traffic-between-versions) feature to perform a Canary deployment on [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
 
 In this sample, `productcatalogservice-v2` introduces a 3-second
@@ -104,11 +108,7 @@ slower v2 deployment.
 
 ## Install istio
 
-Clone the repo
-
-```
-git clone https://github.com/GoogleCloudPlatform/istio-samples
-```
+[Source: GCP repo reference](https://github.com/GoogleCloudPlatform/istio-samples)
 
 1. Change into the Istio install directory from the root of this repository.
 ```
@@ -197,8 +197,7 @@ kubectl apply -f canary/vs-split-traffic.yaml
 
 ## View traffic splitting in Kiali
 
-To install istioctl
-https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/
+- To install istioctl: https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/
 
 
 1. Open the Kiali dashboard with the default admin/admin
@@ -215,7 +214,7 @@ istioctl dashboard kiali &
 
 
 # Assigning Pods to Nodes
-https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+- https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
 
 List all pods and its nodes
 ```
@@ -237,5 +236,5 @@ kubectl apply -f istio-samples/istio-canary-gke/canary/productcatalog-v2.yaml
 To avoid incurring additional billing costs, delete the GKE cluster.
 
 ```
-terraform plan/apply
+terraform plan/apply/destroy
 ```
