@@ -135,7 +135,7 @@ kiali-b4b5b4fb8-hwm42                  1/1     Running   0          5m23s
 prometheus-558b665bb7-5v647            2/2     Running   0          5m23s
 ```
 
-## Deploy the Sample App
+## Patch ProductCatalog v1
 
 1.  Add a `version=v1` label to the `productcatalog` deployment
 
@@ -210,7 +210,6 @@ istioctl dashboard kiali &
 
 3. Select "Versioned App Graph."
 4. In the service graph, zoom in on `productcatalogservice`. You should see that approximately 25% of productcatalog requests are going to `v2`.
-
 
 
 # Assigning Pods to Nodes
